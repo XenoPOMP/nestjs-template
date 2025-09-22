@@ -3,8 +3,6 @@ services:
     image: postgres:15-alpine
     container_name: nestjs-template-compose-db
     restart: always
-    ports:
-      - "5500:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
