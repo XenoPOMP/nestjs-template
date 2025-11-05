@@ -2,6 +2,7 @@
   "parser": "typescript",
   "tabWidth": 2,
   "singleQuote": true,
+  "jsxSingleQuote": true,
   "semi": true,
   "useTabs": false,
   "arrowParens": "avoid",
@@ -14,5 +15,6 @@
     "^./(.*)$"
   ],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["decorators-legacy", "typescript"]
 }
