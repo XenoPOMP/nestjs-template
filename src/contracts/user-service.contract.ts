@@ -1,3 +1,5 @@
+import { Nullable } from 'xenopomp-essentials';
+
 export interface UserServiceContract<
   Shape extends UserShape,
   ExtendedShape extends Partial<Shape>,
@@ -5,17 +7,17 @@ export interface UserServiceContract<
   AuthDto extends AuthDtoShape,
   UpdateDto extends UpdateDtoShape,
 > {
-  getById(id: Shape['id']): Promise<ExtendedShape>;
-  getByLogin(login: Shape['login']): Promise<ExtendedShape>;
+  getById(id: Shape['id']): Promise<Nullable<ExtendedShape>>;
+  getByLogin(login: Shape['login']): Promise<Nullable<ExtendedShape>>;
   create(dto: AuthDto): Promise<Shape>;
-  update(id: Shape['id'], dto: UpdateDto): Promise<UpdateShape>;
+  update(id: Shape['id'], dto: UpdateDto): Promise<Nullable<UpdateShape>>;
   delete(id: Shape['id']): Promise<void>;
 }
 
 type UserShape = {
   id: string;
   login: string;
-  name?: string;
+  name?: string | null;
   password: string;
 };
 
