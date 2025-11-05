@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { hash } from 'argon2';
+import { StrictOmit } from 'xenopomp-essentials';
 
 import { UserServiceContract } from '@/contracts/user-service.contract';
 import { PrismaService } from '@/features/prisma/prisma.service';
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 import { UserDto } from '@/routes/user/dto/user.dto';
-import { SanitizedUser } from '@/types/sanitized-user';
 import { SelectiveRequired } from '@/types/selective-required';
 
 type ServiceContract = UserServiceContract<
@@ -86,9 +86,9 @@ export class UserService implements ServiceContract {
    */
   sanitize<Shape extends SelectiveRequired<Partial<User>, 'password'>>(
     data: Shape,
-  ): SanitizedUser {
+  ): StrictOmit<Shape, 'password'> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...user } = data;
-    return user as SanitizedUser;
+    return user as StrictOmit<Shape, 'password'>;
   }
 }
