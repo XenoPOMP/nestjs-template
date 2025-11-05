@@ -32,7 +32,13 @@ const environmentSchema = z.object({
   APP_HOST: z.string(),
 
   // Other
-  NODE_ENV: z.string().default('development'),
+  NODE_ENV: z
+    .union([
+      z.literal('development'),
+      z.literal('production'),
+      z.literal('test'),
+    ])
+    .default('development'),
 });
 
 export type EnvironmentSchema = z.infer<typeof environmentSchema>;

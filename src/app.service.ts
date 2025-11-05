@@ -6,11 +6,11 @@ export class AppService {
   constructor(private readonly env: EnvironmentService) {}
 
   getHello() {
-    const envSchema = this.env.schema();
+    const { NODE_ENV: env } = this.env.schema();
 
     return {
       message: 'Hello World!',
-      env: envSchema.NODE_ENV,
+      env,
     };
   }
 }
