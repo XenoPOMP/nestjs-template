@@ -1,5 +1,4 @@
 import {
-  applyDecorators,
   Delete,
   Get,
   Head,
@@ -10,6 +9,7 @@ import {
   Put,
   UsePipes,
   ValidationPipe,
+  applyDecorators,
 } from '@nestjs/common';
 import { AllMethods } from 'supertest/types';
 import { Fn } from 'xenopomp-essentials';
@@ -74,7 +74,7 @@ export function Endpoint(type: Method, path?: Path, options?: EndpointOptions) {
     // TODO Uncomment line below, when auth decorators will be implemented,
     // authRequired ? Auth() : undefined,
   ]
-    .filter((d) => d !== undefined)
+    .filter(d => d !== undefined)
     .reverse();
 
   return applyDecorators(...decorators);
