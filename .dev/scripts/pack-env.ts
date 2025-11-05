@@ -10,6 +10,7 @@ import { open, readFile, writeFile } from 'fs/promises';
 const TARGET = '.env';
 const EXAMPLE_TARGET = '.env.example';
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   console.log(`${bold(EXAMPLE_TARGET)} will be created from ${bold(TARGET)}`);
 
