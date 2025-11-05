@@ -12,7 +12,7 @@ export class EnvironmentService {
 
   /**
    * Convert nest.js config response to Zod parsed schema.
-   * @throws The whole app will be downed if .env file is incorrect.
+   * @throws Whole app will be downed if .env file is incorrect.
    */
   schema() {
     return environmentSchema.parse(process.env);
