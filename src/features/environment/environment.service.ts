@@ -57,6 +57,7 @@ const environmentSchema = z.object({
   APP_HOST: z.string(),
 
   // Other
+  JWT_SECRET: z.string(),
   NODE_ENV: z
     .union([
       z.literal('development'),

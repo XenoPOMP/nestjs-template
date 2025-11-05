@@ -1,21 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { User } from '@prisma/client';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
+import { EnvironmentService } from '@/features/environment/environment.service';
 import { UserService } from '@/routes/user/user.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    private readonly configService: ConfigService,
+    private readonly env: EnvironmentService,
     private readonly userService: UserService,
   ) {
+    const { JWT_SECRET } = env.schema();
+
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: true,
-      secretOrKey: configService.get('JWT_SECRET'),
+      secretOrKey: JWT_SECRET,
     });
   }
 
