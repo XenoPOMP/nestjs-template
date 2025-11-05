@@ -18,3 +18,4 @@ Nest.js Starter
 
 - Swagger UI: http://localhost:4242/openapi
 - openapi.yaml: http://localhost:4242/openapi.yaml
+- openapi.json: http://localhost:4242/openapi.json
