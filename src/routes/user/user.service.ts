@@ -6,6 +6,8 @@ import { UserServiceContract } from '@/contracts/user-service.contract';
 import { PrismaService } from '@/features/prisma/prisma.service';
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 import { UserDto } from '@/routes/user/dto/user.dto';
+import { SanitizedUser } from '@/types/sanitized-user';
+import { SelectiveRequired } from '@/types/selective-required';
 
 type ServiceContract = UserServiceContract<
   User, // Original user type
@@ -76,5 +78,17 @@ export class UserService implements ServiceContract {
         id,
       },
     });
+  }
+
+  /**
+   * Remove sensitive data from user object,
+   * @param data
+   */
+  sanitize<Shape extends SelectiveRequired<Partial<User>, 'password'>>(
+    data: Shape,
+  ): SanitizedUser {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...user } = data;
+    return user as SanitizedUser;
   }
 }
