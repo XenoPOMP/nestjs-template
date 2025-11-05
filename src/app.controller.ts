@@ -9,7 +9,7 @@ export class AppController {
   @Endpoint('GET', '/', {
     code: 200,
   })
-  getHello(): string {
+  getHello() {
     return this.appService.getHello();
   }
 }

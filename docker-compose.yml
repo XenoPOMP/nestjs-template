@@ -25,6 +25,7 @@ services:
       - PGPASSWORD=${PGPASSWORD}
       - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@nestjs-template-compose-db:5432/${PGDATABASE}?schema=public&connect_timeout=300
       - DIRECT_DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@nestjs-template-compose-db:5432/${PGDATABASE}?schema=public&connect_timeout=300
+      - APP_HOST=${APP_HOST}
     networks:
       - default
 

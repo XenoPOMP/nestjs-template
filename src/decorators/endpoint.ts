@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
   Put,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { AllMethods } from 'supertest/types';
 import { Fn } from 'xenopomp-essentials';
@@ -32,8 +34,7 @@ interface EndpointOptions {
   code?: number;
 
   /** Enables validation with class-validator via pipes. */
-  // TODO Choose which validation to use first (class-validator, nestjs-zod, etc.)
-  // validate?: boolean;
+  validate?: boolean;
 
   /** If true, will pass only registered users. */
   // TODO Uncomment line below, when auth decorators will be implemented,
@@ -62,13 +63,12 @@ export function Endpoint(type: Method, path?: Path, options?: EndpointOptions) {
 
   // Default values
   const code = options?.code ?? 200;
-  // const validate = options?.validate ?? false;
+  const validate = options?.validate ?? false;
   // const authRequired = options?.authRequired ?? false;
 
   // Allow optionally adding decorators
   const decorators = [
-    // TODO Choose which validation to use first (class-validator, nestjs-zod, etc.)
-    // validate ? UsePipes(new ValidationPipe()) : undefined,
+    validate ? UsePipes(new ValidationPipe()) : undefined,
     HttpCode(code),
     HttpMethod(path),
     // TODO Uncomment line below, when auth decorators will be implemented,
