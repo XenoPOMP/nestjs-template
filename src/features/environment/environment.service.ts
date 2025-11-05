@@ -5,6 +5,23 @@ import { z } from 'zod';
 /**
  * This service utilizes zod and @nestjs/config under the hood
  * to provide type-safe env object.
+ *
+ * @example
+ * constructor(private readonly env: EnvironmentService) {}
+ *
+ *   getHello() {
+ *     // Parse env with zod schema.
+ *     const { NODE_ENV } = this.env.schema();
+ *     const isProduction: boolean = this.env.isProduction();
+ *
+ *     return {
+ *       message: 'Hello World!',
+ *       debug: {
+ *         env: NODE_ENV,
+ *         isProduction,
+ *       },
+ *     };
+ *   }
  */
 @Injectable()
 export class EnvironmentService {
