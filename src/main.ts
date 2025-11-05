@@ -26,6 +26,8 @@ async function bootstrap() {
   SwaggerModule.setup('openapi', app, documentFactory, {
     yamlDocumentUrl: 'openapi.yaml',
     jsonDocumentUrl: 'openapi.json',
+    // TODO Opt-in disable public Swagger UI endpoint
+    swaggerUiEnabled: true,
   });
 
   await app.listen(process.env.PORT ?? 4242);
