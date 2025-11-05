@@ -17,6 +17,14 @@ export class EnvironmentService {
   schema() {
     return environmentSchema.parse(process.env);
   }
+
+  /**
+   * Simply checks if `NODE_ENV` equals to `production`
+   */
+  isProduction(): boolean {
+    const { NODE_ENV } = this.schema();
+    return NODE_ENV === 'production';
+  }
 }
 
 const environmentSchema = z.object({
