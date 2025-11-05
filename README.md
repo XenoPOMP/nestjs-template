@@ -12,3 +12,9 @@ Nest.js Starter
 - 🐶 Husky hooks for local development
 - 🤖 GitHub Actions driven CI
 - 🍪 Simple JWT Auth
+- 🟢 OpenAPI specs (powered by ``@nestjs/swagger``)
+
+## 🟢 OpenAPI
+
+- Swagger UI: http://localhost:4242/openapi
+- openapi.yaml: http://localhost:4242/openapi.yaml
