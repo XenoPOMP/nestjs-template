@@ -43,6 +43,8 @@ export class AuthService {
 
     /** Check if user with certain email exists. */
     if (oldUser) throw new BadRequestException('User already exists');
+
+    await this.userService.create(dto);
   }
 
   /**
