@@ -11,3 +11,4 @@ Nest.js Starter
 - 🔎 Prisma ORM
 - 🐶 Husky hooks for local development
 - 🤖 GitHub Actions driven CI
+- 🍪 Simple JWT Auth
