@@ -1,16 +1,13 @@
 import {
   Body,
   Controller,
-  HttpCode,
-  Post,
   Req,
   Res,
   UnauthorizedException,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
+import { Endpoint } from '@/decorators/endpoint';
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 
 import { AuthService } from './auth.service';
@@ -19,9 +16,9 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UsePipes(new ValidationPipe())
-  @HttpCode(200)
-  @Post('login')
+  @Endpoint('POST', 'login', {
+    validate: true,
+  })
   async login(@Body() dto: AuthDto, @Res({ passthrough: true }) res: Response) {
     const { refreshToken, ...response } = await this.authService.login(dto);
     this.authService.addRefreshTokenToResponse(res, refreshToken);
@@ -29,9 +26,9 @@ export class AuthController {
     return response;
   }
 
-  @UsePipes(new ValidationPipe())
-  @HttpCode(200)
-  @Post('register')
+  @Endpoint('POST', 'register', {
+    validate: true,
+  })
   async register(
     @Body() dto: AuthDto,
     @Res({ passthrough: true }) res: Response,
@@ -40,8 +37,9 @@ export class AuthController {
     return this.login(dto, res);
   }
 
-  @HttpCode(200)
-  @Post('login/access-token')
+  @Endpoint('POST', 'login/access-token', {
+    authRequired: true,
+  })
   async getNewTokens(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
@@ -66,8 +64,7 @@ export class AuthController {
     return response;
   }
 
-  @HttpCode(200)
-  @Post('logout')
+  @Endpoint('POST', 'logout')
   // eslint-disable-next-line @typescript-eslint/require-await
   async logout(@Res({ passthrough: true }) res: Response) {
     this.authService.removeRefreshTokenFromResponse(res);
