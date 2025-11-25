@@ -16,7 +16,7 @@ import { Fn } from 'xenopomp-essentials';
 
 import { Auth } from '@/routes/auth/decorators/auth.decorator';
 
-type Method = keyof typeof methodsMap;
+export type Method = keyof typeof methodsMap;
 type Path = string | string[];
 
 const methodsMap = {
