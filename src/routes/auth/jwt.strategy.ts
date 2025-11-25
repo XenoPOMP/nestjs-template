@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private readonly env: EnvironmentService,
     private readonly userService: UserService,
   ) {
-    const { JWT_SECRET } = env.schema();
+    const { JWT_SECRET } = env.schema;
 
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

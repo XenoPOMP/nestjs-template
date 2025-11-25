@@ -6,7 +6,7 @@ export const getJwtConfig = async (
   env: EnvironmentService,
   // eslint-disable-next-line @typescript-eslint/require-await
 ): Promise<JwtModuleOptions> => {
-  const { JWT_SECRET } = env.schema();
+  const { JWT_SECRET } = env.schema;
 
   return {
     secret: JWT_SECRET,

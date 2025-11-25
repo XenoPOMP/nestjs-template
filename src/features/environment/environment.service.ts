@@ -25,21 +25,18 @@ import { z } from 'zod';
  */
 @Injectable()
 export class EnvironmentService {
-  constructor(private readonly configService: ConfigService) {}
+  /** This schema is being parsed on service initialization. */
+  schema: z.infer<typeof environmentSchema>;
 
-  /**
-   * Convert nest.js config response to Zod parsed schema.
-   * @throws Whole app will be downed if .env file is incorrect.
-   */
-  schema() {
-    return environmentSchema.parse(process.env);
+  constructor(private readonly configService: ConfigService) {
+    this.schema = environmentSchema.parse(process.env);
   }
 
   /**
    * Simply checks if `NODE_ENV` equals to `production`
    */
   isProduction(): boolean {
-    const { NODE_ENV } = this.schema();
+    const { NODE_ENV } = this.schema;
     return NODE_ENV === 'production';
   }
 }
