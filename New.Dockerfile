@@ -34,10 +34,11 @@ ENV NODE_ENV=production
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./package.json
+COPY --from=builder /usr/src/app/prisma ./prisma
+# Copy any time of lockfile
 COPY --from=builder /usr/src/app/yarn.lock* ./
 COPY --from=builder /usr/src/app/package-lock.json* ./
 COPY --from=builder /usr/src/app/pnpm-lock.yaml* ./
 COPY --from=builder /usr/src/app/.npmrc* ./
-COPY --from=builder /usr/src/app/prisma ./prisma
 EXPOSE 4242
 CMD ["yarn", "start:migrate:prod"]
