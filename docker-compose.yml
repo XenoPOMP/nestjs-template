@@ -23,7 +23,7 @@ services:
     container_name: nestjs-template-backend
     restart: unless-stopped
     ports:
-      - "4242:4242"
+      - "${PORT:-4242}:4242"
     depends_on:
       db:
         condition: service_healthy
