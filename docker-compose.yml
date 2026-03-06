@@ -9,8 +9,14 @@ services:
       - POSTGRES_USER=${PGUSER}
       - POSTGRES_PASSWORD=${PGPASSWORD}
       - POSTGRES_DB=${PGDATABASE}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
-      - default
+      database:
 
   backend:
     build: .
@@ -18,7 +24,8 @@ services:
     ports:
       - "4242:4242"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - PGDATABASE=${PGDATABASE}
       - PGUSER=${PGUSER}
@@ -28,10 +35,10 @@ services:
       - JWT_SECRET=${JWT_SECRET}
       - APP_HOST=${APP_HOST}
     networks:
-      - default
+      database:
 
 volumes:
   db_data:
 
 networks:
-  default:
+  database:
