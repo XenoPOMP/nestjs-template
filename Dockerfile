@@ -46,5 +46,9 @@ COPY --from=deps /usr/src/app/yarn.lock* ./
 COPY --from=deps /usr/src/app/package-lock.json* ./
 COPY --from=deps /usr/src/app/pnpm-lock.yaml* ./
 COPY --from=deps /usr/src/app/.npmrc* ./
+RUN \
+    npx --yes concurrently \
+      'npx --yes @slsplus/node-prune' \
+      'npx --yes node-prune'
 EXPOSE 4242
 CMD ["yarn", "start:migrate:prod"]
