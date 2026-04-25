@@ -98,5 +98,6 @@
     "moduleNameMapper": {
       "@/(.*)": "<rootDir>/$1"
     }
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
