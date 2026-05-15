@@ -25,4 +25,4 @@ npx --yes minify-all-js dist --json --mangle
 MINIFIED_SIZE=$(folder_size)
 SAVED=$(( $INITIAL_SIZE - $MINIFIED_SIZE ))
 
-echo "Size $INITIAL_SIZE -> $MINIFIED_SIZE (saved $SAVED)"
+echo "📦 Saved disk size: $(npx --yes pretty-bytes-cli $SAVED)"
