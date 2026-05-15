@@ -5,7 +5,7 @@ FOLDER=$ROOT/$(basename $1)
 
 if [ ! -d "$FOLDER" ]; then
   echo "⚠️ Folder \"$FOLDER\" does not exist."
-  exit 0
+  exit 1
 fi
 
 echo "📁 Obfuscating \"$FOLDER\""
