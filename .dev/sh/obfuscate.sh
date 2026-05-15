@@ -20,7 +20,11 @@ rm -rf $FOLDER/**/*.ts
 echo "🗑️ Removed all TypeScript files"
 
 echo "⬇️ Starting minify script"
-npx --yes minify-all-js $FOLDER --json --mangle
+if [ -d "$ROOT/node_modules" ]; then
+  npx --yes modclean -n default:safe
+else
+  npx --yes minify-all-js $FOLDER --json --mangle
+fi
 
 MINIFIED_SIZE=$(folder_size)
 SAVED=$(( $INITIAL_SIZE - $MINIFIED_SIZE ))
