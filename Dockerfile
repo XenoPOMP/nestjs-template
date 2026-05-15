@@ -15,7 +15,9 @@ FROM base AS deps
 WORKDIR /app/deps
 COPY package.json yarn.lock* ./
 COPY prisma ./prisma
+COPY .dev/sh/obfuscate.sh .
 RUN yarn install --frozen-lockfile
+RUN ./obfuscate.sh ./node_modules
 
 # Rebuild app only when needed
 FROM base AS builder
