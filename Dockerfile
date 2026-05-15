@@ -38,7 +38,5 @@ COPY package.json yarn.lock* ./
 COPY prisma ./prisma
 COPY --from=deps /app/deps/node_modules ./node_modules
 COPY --from=builder /app/build/dist ./dist
-RUN npx --yes concurrently \
-      'npx --yes @slsplus/node-prune'
 EXPOSE 4242
 CMD ["yarn", "start:migrate:prod"]
