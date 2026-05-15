@@ -6,7 +6,7 @@
 dist
 node_modules
 test
-.env.example
+.env*
 .gitignore
 .lintstagedrc.json
 .prettierrc
