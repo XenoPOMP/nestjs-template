@@ -26,5 +26,6 @@
   "include": [
     "./**/*.ts",
     "./.dev/**/*.ts",
+    "./prisma/generated/**/*.ts"
   ]
 }
