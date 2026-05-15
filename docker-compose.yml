@@ -1,3 +1,5 @@
+name: nestjs-template
+
 services:
   db:
     image: postgres:15-alpine
@@ -17,6 +19,7 @@ services:
       start_period: 10s
     networks:
       database:
+        ipv4_address: 172.20.0.6
 
   backend:
     build: .
@@ -27,19 +30,23 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      - PGDATABASE=${PGDATABASE}
-      - PGUSER=${PGUSER}
-      - PGPASSWORD=${PGPASSWORD}
-      - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@nestjs-template-compose-db:5432/${PGDATABASE}?schema=public&connect_timeout=300
-      - DIRECT_DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@nestjs-template-compose-db:5432/${PGDATABASE}?schema=public&connect_timeout=300
-      - JWT_SECRET=${JWT_SECRET}
-      - APP_HOST=${APP_HOST}
     networks:
       database:
+        ipv4_address: 172.20.0.5
+    environment:
+      - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.0.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
+      - DIRECT_DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.0.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
+      - JWT_SECRET=${JWT_SECRET}
+      - APP_HOST=${APP_HOST}
 
 volumes:
   db_data:
 
 networks:
+  # Database  172.20.0.4/30 - 172.20.0.7/30
   database:
+    ipam:
+      config:
+        - subnet: "172.20.0.0/16"
+          gateway: "172.20.0.1"
+          ip_range: "172.20.0.4/30"

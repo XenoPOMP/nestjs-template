@@ -42,14 +42,6 @@ export class EnvironmentService {
 }
 
 const environmentSchema = z.object({
-  // For docker compose
-  PGDATABASE: z.string(),
-  PGUSER: z.string(),
-  PGPASSWORD: z.string(),
-
-  // For local Prisma development
-  DATABASE_URL: z.string().optional(),
-
   // For cookie assignee
   APP_HOST: z.string(),
 
