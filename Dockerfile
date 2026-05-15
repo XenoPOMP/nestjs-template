@@ -4,7 +4,7 @@ ENV NODE_ENV=production
 RUN apk add --no-cache openssl
 
 # Install dev deps
-FROM base AS devDeps
+FROM base AS devdeps
 WORKDIR /app/devDeps
 COPY package.json yarn.lock* ./
 COPY prisma ./prisma
@@ -20,7 +20,7 @@ RUN yarn install --frozen-lockfile
 # Rebuild app only when needed
 FROM base AS builder
 WORKDIR /app/build
-COPY --from=devDeps /app/devDeps/node_modules ./node_modules
+COPY --from=devdeps /app/devDeps/node_modules ./node_modules
 COPY . .
 RUN yarn run build
 
