@@ -23,6 +23,7 @@ WORKDIR /app/build
 COPY --from=devdeps /app/devDeps/node_modules ./node_modules
 COPY . .
 RUN yarn run build
+RUN ./.dev/sh/obfuscate.sh ./dist
 
 # Run the actual app
 FROM base AS runtime
