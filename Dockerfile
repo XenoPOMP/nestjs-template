@@ -1,5 +1,6 @@
 # Setup base image
 FROM node:22-alpine AS base
+ENV NODE_ENV=production
 RUN apk add --no-cache openssl
 
 # Install yarn deps
@@ -7,7 +8,7 @@ FROM base AS deps
 WORKDIR /app/deps
 COPY package.json yarn.lock* ./
 COPY prisma ./prisma
-RUN yarn install --frozen-lockfile --prod
+RUN yarn install --frozen-lockfile
 
 # Rebuild app only when needed
 FROM base AS builder
@@ -19,7 +20,6 @@ RUN yarn run build
 # Run the actual app
 FROM base AS runtime
 WORKDIR /app/runtime
-ENV NODE_ENV=production
 COPY package.json yarn.lock* ./
 COPY prisma ./prisma
 COPY --from=deps /app/deps/node_modules ./node_modules
