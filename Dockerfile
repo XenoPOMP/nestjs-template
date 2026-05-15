@@ -25,4 +25,4 @@ RUN rm -rf scripts tsconfig.json tsconfig.build.json
 FROM base AS runner
 WORKDIR /app/runner
 COPY --from=builder /app/build ./
-CMD ["tail", "-f", "/dev/null"]
+CMD ["yarn", "start:migrate:prod"]
