@@ -5,11 +5,12 @@ RUN apk add --no-cache openssl
 FROM base AS builder
 WORKDIR /app/build
 # Copy configurations
-COPY package.json yarn.lock* tsconfig* nest-cli.json ./
+COPY package.json yarn.lock* ./
 COPY prisma ./prisma
 RUN NODE_ENV=development yarn install --frozen-lockfile
 # Build project only when needed
 COPY src ./src
+COPY tsconfig* nest-cli.json ./
 RUN yarn run build
 # Delete development assets
 RUN rm -rf node_modules src
