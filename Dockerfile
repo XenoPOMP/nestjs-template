@@ -30,6 +30,13 @@ RUN ./scripts/obfuscate.sh ./dist
 
 # Run the actual app
 FROM base AS runtime
+
+# Parse args
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+ARG DIRECT_DATABASE_URL
+ENV DIRECT_DATABASE_URL=$DIRECT_DATABASE_URL
+
 WORKDIR /app/runtime
 COPY package.json yarn.lock* ./
 COPY prisma ./prisma
