@@ -6,6 +6,13 @@
 Nest.js Starter
 </h1>
 
+## 🫆 Preparing for local development
+The initial database setup is needed. After setting up ``.env`` file, please, run this command:
+```shell
+yarn migrate:dev --name init
+```
+This script will generate database and apply all the migrations for it.
+
 ## 🔨 Features
 - 🐳 Docker-compose
 - 🔎 Prisma ORM
