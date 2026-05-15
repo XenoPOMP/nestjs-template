@@ -15,8 +15,8 @@ FROM base AS deps
 WORKDIR /app/deps
 COPY package.json yarn.lock* ./
 COPY prisma ./prisma
-COPY .dev/sh/obfuscate.sh .
 RUN yarn install --frozen-lockfile
+COPY .dev/sh/obfuscate.sh .
 RUN ./obfuscate.sh ./node_modules
 
 # Rebuild app only when needed
@@ -24,11 +24,11 @@ FROM base AS builder
 WORKDIR /app/build
 COPY --from=devdeps /app/devDeps/node_modules ./node_modules
 # Copy only needed files
-COPY ./.dev/sh ./scripts
 COPY prisma ./prisma
 COPY src ./src
 COPY package.json yarn.lock* tsconfig.* ./
 RUN yarn run build
+COPY ./.dev/sh ./scripts
 RUN ./scripts/obfuscate.sh ./dist
 
 # Run the actual app

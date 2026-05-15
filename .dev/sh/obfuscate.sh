@@ -26,7 +26,7 @@ if [[ "$(basename $FOLDER)" == "node_modules" ]]; then
   npx --yes @slsplus/node-prune
   npx --yes @usex/prune-mod
 else
-  npx --yes minify-all-js $FOLDER --json --mangle
+  npx --yes minify-all-js $FOLDER --json
 fi
 
 MINIFIED_SIZE=$(folder_size)
