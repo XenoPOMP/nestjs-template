@@ -11,7 +11,7 @@ import { z } from 'zod';
  *
  *   getHello() {
  *     // Parse env with zod schema.
- *     const { NODE_ENV } = this.env.schema();
+ *     const { NODE_ENV } = this.env.schema;
  *     const isProduction: boolean = this.env.isProduction();
  *
  *     return {
