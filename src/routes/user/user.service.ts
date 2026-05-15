@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
 import { hash } from 'argon2';
 import { StrictOmit } from 'xenopomp-essentials';
+import { Prisma, User } from '~prisma/client';
 
 import { UserServiceContract } from '@/contracts/user-service.contract';
 import { PrismaService } from '@/features/prisma/prisma.service';
