@@ -16,7 +16,8 @@ fi
 
 echo "📁 Obfuscating \"$FOLDER\""
 
-rm -rf $FOLDER/**/*.ts
+find $FOLDER -type f -name "*.ts" -delete
+find $FOLDER -type f -name "*.d.ts" -delete
 echo "🗑️ Removed all TypeScript files"
 
 echo "⬇️ Starting minify script"
