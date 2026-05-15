@@ -23,10 +23,7 @@ RUN ./obfuscate.sh ./node_modules
 FROM base AS builder
 WORKDIR /app/build
 COPY --from=devdeps /app/devDeps/node_modules ./node_modules
-# Copy only needed files
-COPY prisma ./prisma
-COPY src ./src
-COPY package.json yarn.lock* tsconfig.* ./
+COPY . .
 RUN yarn run build
 COPY ./.dev/sh ./scripts
 RUN ./scripts/obfuscate.sh ./dist
