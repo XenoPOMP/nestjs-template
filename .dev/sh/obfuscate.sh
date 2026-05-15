@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 ROOT=$(pwd)
 FOLDER=$ROOT/$(basename $1)
