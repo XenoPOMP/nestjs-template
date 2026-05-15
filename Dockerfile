@@ -18,6 +18,7 @@ COPY prisma ./prisma
 RUN yarn install --frozen-lockfile
 COPY .dev/sh/obfuscate.sh .
 RUN ./obfuscate.sh ./node_modules
+RUN rm -rf $(find ./node_modules/@next -type d -name "swc*" -maxdepth 1 | paste -s -d ' ')
 
 # Rebuild app only when needed
 FROM base AS builder
