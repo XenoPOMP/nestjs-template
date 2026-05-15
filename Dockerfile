@@ -19,6 +19,13 @@ RUN yarn install --frozen-lockfile
 COPY .dev/sh/obfuscate.sh .
 RUN ./obfuscate.sh ./node_modules
 RUN rm -rf $(find ./node_modules/@next -type d -name "swc*" -maxdepth 1 | paste -s -d ' ')
+RUN rm -rf ./node_modules/next ; \
+    rm -rf ./node_modules/@img ; \
+    rm -rf ./node_modules/typescript ; \
+    rm -rf ./node_modules/prettier ; \
+    rm -rf ./node_modules/@typescript-eslint ; \
+    rm -rf ./node_modules/eslint ; \
+    rm -rf ./node_modules/@eslint ;
 
 # Rebuild app only when needed
 FROM base AS builder
