@@ -1,6 +1,6 @@
-import { JwtModuleOptions } from '@nestjs/jwt';
+import type { JwtModuleOptions } from '@nestjs/jwt';
 
-import { EnvironmentService } from '@/features/environment/environment.service';
+import type { EnvironmentService } from '@/features/environment/environment.service';
 
 export const getJwtConfig = async (
   env: EnvironmentService,

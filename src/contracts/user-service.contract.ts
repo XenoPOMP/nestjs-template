@@ -1,4 +1,4 @@
-import { Nullable } from 'xenopomp-essentials';
+import type { Nullable } from 'xenopomp-essentials';
 
 export interface UserServiceContract<
   Shape extends UserShape,

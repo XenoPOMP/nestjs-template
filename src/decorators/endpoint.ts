@@ -11,8 +11,8 @@ import {
   ValidationPipe,
   applyDecorators,
 } from '@nestjs/common';
-import { AllMethods } from 'supertest/types';
-import { Fn } from 'xenopomp-essentials';
+import type { AllMethods } from 'supertest/types';
+import type { Fn } from 'xenopomp-essentials';
 
 import { Auth } from '@/routes/auth/decorators/auth.decorator';
 

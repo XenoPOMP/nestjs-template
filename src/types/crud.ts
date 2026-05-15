@@ -1,4 +1,4 @@
-import { Method } from '@/decorators/endpoint';
+import type { Method } from '@/decorators/endpoint';
 
 /**
  * Dict of generic CRUD operations, like read, create etc.
