@@ -36,4 +36,5 @@ COPY prisma ./prisma
 COPY --from=deps /app/deps/node_modules ./node_modules
 COPY --from=builder /app/build/dist ./dist
 EXPOSE 4242
-CMD ["yarn", "start:migrate:prod"]
+RUN npx prisma migrate deploy
+CMD ["node", "./dist/main.js"]
