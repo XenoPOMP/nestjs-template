@@ -19,6 +19,7 @@ services:
       start_period: 10s
     networks:
       database:
+        ipv4_address: 172.20.0.6
 
   backend:
     build:
@@ -41,9 +42,16 @@ services:
       - APP_HOST=${APP_HOST}
     networks:
       database:
+        ipv4_address: 172.20.0.5
 
 volumes:
   db_data:
 
 networks:
+  # Database  172.20.0.4/30 - 172.20.0.7/30
   database:
+    ipam:
+      config:
+        - subnet: "172.20.0.0/16"
+          gateway: "172.20.0.1"
+          ip_range: "172.20.0.4/30"
