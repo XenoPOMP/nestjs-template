@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { verify } from 'argon2';
 import { CookieOptions, Response } from 'express';
-import { User } from '~prisma/client';
+import type { User } from '~prisma/client';
 
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 import { UserService } from '@/routes/user/user.service';
