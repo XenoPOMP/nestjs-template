@@ -30,7 +30,6 @@ RUN ./scripts/obfuscate.sh ./dist
 
 # Run the actual app
 FROM base AS runtime
-
 # Parse args
 WORKDIR /app/runtime
 COPY package.json yarn.lock* ./
