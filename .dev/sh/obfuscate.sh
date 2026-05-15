@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 ROOT=$(pwd)
-FOLDER=$ROOT/$(basename $1)
+FOLDER=$ROOT/$1
 
 folder_size() {
   npx --yes fast-folder-size $FOLDER
