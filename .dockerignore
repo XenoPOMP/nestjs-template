@@ -1,13 +1,2 @@
 # These assets are generated in steps of dockerfile
 node_modules
-
-# Developer only assets
-.dev
-!.dev/sh
-.github
-test
-*.spec.*
-.env.example
-.gitignore
-.lintstagedrc.json
-README.md
