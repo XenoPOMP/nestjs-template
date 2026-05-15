@@ -3,7 +3,14 @@ FROM node:22-alpine AS base
 ENV NODE_ENV=production
 RUN apk add --no-cache openssl
 
-# Install yarn deps
+# Install dev deps
+FROM base AS devDeps
+WORKDIR /app/devDeps
+COPY package.json yarn.lock* ./
+COPY prisma ./prisma
+RUN NODE_ENV=development yarn install --frozen-lockfile
+
+# Install production deps
 FROM base AS deps
 WORKDIR /app/deps
 COPY package.json yarn.lock* ./
@@ -13,7 +20,7 @@ RUN yarn install --frozen-lockfile
 # Rebuild app only when needed
 FROM base AS builder
 WORKDIR /app/build
-COPY --from=deps /app/deps/node_modules ./node_modules
+COPY --from=devDeps /app/devDeps/node_modules ./node_modules
 COPY . .
 RUN yarn run build
 
