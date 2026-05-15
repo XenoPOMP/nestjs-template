@@ -22,13 +22,7 @@ services:
         ipv4_address: 172.20.0.6
 
   backend:
-    build:
-      context: .
-      args:
-        - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.0.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
-        - DIRECT_DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.0.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
-        - JWT_SECRET=${JWT_SECRET}
-        - APP_HOST=${APP_HOST}
+    build: .
     container_name: nestjs-template-backend
     restart: unless-stopped
     ports:
@@ -39,6 +33,11 @@ services:
     networks:
       database:
         ipv4_address: 172.20.0.5
+    environment:
+      - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.0.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
+      - DIRECT_DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.0.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
+      - JWT_SECRET=${JWT_SECRET}
+      - APP_HOST=${APP_HOST}
 
 volumes:
   db_data:
