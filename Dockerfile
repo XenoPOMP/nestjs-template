@@ -23,7 +23,9 @@ RUN ./obfuscate.sh ./node_modules
 FROM base AS builder
 WORKDIR /app/build
 COPY --from=devdeps /app/devDeps/node_modules ./node_modules
-COPY . .
+COPY package.json yarn.lock tsconfig* nest-cli.json ./
+COPY src ./src/
+COPY prisma ./prisma/
 RUN yarn run build
 COPY ./.dev/sh ./scripts
 RUN ./scripts/obfuscate.sh ./dist

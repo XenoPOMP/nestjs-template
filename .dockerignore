@@ -1,14 +1,2 @@
-.dev
-!.dev/sh/*
-.github
-.husky
-.idea
-dist
 node_modules
-test
-.env*
-.gitignore
-.lintstagedrc.json
-.prettierrc
-eslint.config.mjs
-README.md
+dist
