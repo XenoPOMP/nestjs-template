@@ -1,3 +1,5 @@
+name: nestjs-template
+
 services:
   db:
     image: postgres:15-alpine
