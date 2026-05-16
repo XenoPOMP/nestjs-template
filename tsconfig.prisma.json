@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "./.dev/ts/tsconfig.base.json",
   "compilerOptions": {
     "declaration": false,
     "baseUrl": "./prisma/generated",
