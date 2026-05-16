@@ -7,3 +7,4 @@ rm -rf ./node_modules/prettier
 rm -rf ./node_modules/@typescript-eslint
 rm -rf ./node_modules/eslint
 rm -rf ./node_modules/@eslint
+rm -rf scripts tsconfig*

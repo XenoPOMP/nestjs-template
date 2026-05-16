@@ -20,7 +20,6 @@ RUN ./scripts/obfuscate.sh dist
 RUN ./scripts/obfuscate.sh node_modules
 RUN ./scripts/obfuscate.sh prisma/generated
 RUN ./scripts/clean-dev-deps.sh
-RUN rm -rf scripts tsconfig.json tsconfig.build.json
 
 FROM base AS runner
 WORKDIR /app/runner
