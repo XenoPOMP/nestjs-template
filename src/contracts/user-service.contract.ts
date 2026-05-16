@@ -26,6 +26,8 @@ type AuthDtoShape = {
   password: string;
 };
 
-type UpdateDtoShape = AuthDtoShape & {
-  name: string;
-};
+type UpdateDtoShape = Partial<
+  AuthDtoShape & {
+    name: string;
+  }
+>;

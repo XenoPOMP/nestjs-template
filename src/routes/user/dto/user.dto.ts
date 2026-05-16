@@ -2,7 +2,7 @@ import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 
-export class UserDto implements AuthDto {
+export class UserDto implements Partial<AuthDto> {
   @IsOptional()
   @IsString()
   @MinLength(5, {
@@ -11,16 +11,16 @@ export class UserDto implements AuthDto {
   @MaxLength(15, {
     message: 'login must be not longer then 5 characters long',
   })
-  login: string;
+  login: string | undefined;
 
   @IsOptional()
   @IsString()
-  name: string;
+  name: string | undefined;
 
   @IsOptional()
   @IsString()
   @MinLength(6, {
     message: 'password must be at least 6 characters long',
   })
-  password: string;
+  password: string | undefined;
 }
