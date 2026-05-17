@@ -2,7 +2,7 @@ FROM node:22-alpine AS base
 ENV NODE_ENV=production
 WORKDIR /app
 RUN apk add --no-cache openssl
-COPY ./.dev/scripts/ ./dev/
+COPY .dev/sh/. /usr/local/bin
 
 FROM base AS deps
 COPY package.json yarn.lock ./
@@ -11,7 +11,7 @@ RUN NODE_ENV=development yarn install --frozen-lockfile
 FROM deps AS proddeps
 RUN rm -rf node_modules
 RUN yarn install --frozen-lockfile --prod --offline
-RUN ./dev/clean-dev-deps.sh
+RUN clean-dev-deps
 
 FROM deps AS builder
 COPY src ./src/
