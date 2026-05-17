@@ -15,7 +15,7 @@ import { SelectiveRequired } from '@/types/selective-required';
 type ServiceContract = UserServiceContract<
   User, // Original user type
   User & {}, // User type returned by getter functions
-  Pick<User, 'name' | 'login'>, // User type returned by updater function
+  User & {}, // User type returned by updater function
   InstanceType<typeof AuthDto>, // Auth dto used by creater function
   InstanceType<typeof UserDto> // Dto that is used in updater function
 >;
