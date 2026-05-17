@@ -22,8 +22,7 @@
     "studio": "npx prisma studio",
     "prepare": "husky",
     "ci:lint": "yarn lint --max-warnings=0",
-    "ci:test": "yarn test --passWithNoTests",
-    "postinstall": "npx prisma generate"
+    "ci:test": "yarn test --passWithNoTests"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
