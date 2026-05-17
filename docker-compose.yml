@@ -11,6 +11,7 @@ services:
       - POSTGRES_USER=${PGUSER}
       - POSTGRES_PASSWORD=${PGPASSWORD}
       - POSTGRES_DB=${PGDATABASE}
+      - TZ
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
       interval: 10s
@@ -38,6 +39,7 @@ services:
       - DIRECT_DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.1.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
       - JWT_SECRET=${JWT_SECRET}
       - APP_HOST=${APP_HOST}
+      - TZ
 
 volumes:
   db_data:
