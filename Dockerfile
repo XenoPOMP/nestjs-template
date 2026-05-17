@@ -29,6 +29,5 @@ COPY                    prisma                          ./prisma
 COPY --from=proddeps    /app/node_modules               ./node_modules/
 COPY --from=builder     /app/dist                       ./dist/
 COPY                    .dev/docker-scripts/.           /usr/local/bin
-#RUN link-engines
 EXPOSE 4242
 CMD ["yarn", "start:migrate:prod"]
