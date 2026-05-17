@@ -28,6 +28,5 @@ COPY                    package.json prisma.config.ts   ./
 COPY                    prisma                          ./prisma
 COPY --from=proddeps    /app/node_modules               ./node_modules/
 COPY --from=builder     /app/dist                       ./dist/
-COPY                    .dev/docker-scripts/.           /usr/local/bin
 EXPOSE 4242
 CMD ["yarn", "start:migrate:prod"]
