@@ -58,10 +58,7 @@ export class UserService implements ServiceContract {
     });
   }
 
-  async update(
-    id: string,
-    dto: UserDto,
-  ): Promise<Pick<User, 'name' | 'login'>> {
+  async update(id: string, dto: UserDto): Promise<Nullable<User>> {
     let data = dto;
 
     if (dto.password) {
@@ -73,10 +70,6 @@ export class UserService implements ServiceContract {
         id,
       },
       data,
-      select: {
-        name: true,
-        login: true,
-      },
     });
   }
 
