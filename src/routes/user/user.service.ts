@@ -23,7 +23,7 @@ type ServiceContract = UserServiceContract<
 export class UserService implements ServiceContract {
   constructor(private readonly prisma: PrismaService) {}
 
-  private async getByFields<U extends Prisma.UserWhereUniqueInput>(
+  private getByFields<U extends Prisma.UserWhereUniqueInput>(
     shape: U,
   ): Promise<Nullable<User>> {
     return this.prisma.user.findUnique({
