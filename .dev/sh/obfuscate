@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+#
+# This script tries to minimize folder size by running
+# prune scripts on it.
+#
+
 ROOT=$(pwd)
 FOLDER=$ROOT/$1
 

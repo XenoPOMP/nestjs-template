@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+#
+# This script is CRUCIAL, because Prisma can not find
+# engine file if we will not copy it to dist folder manually.
+#
+
 echo "🗂️ Starting linking Prisma engines"
 
 DEST="./dist"

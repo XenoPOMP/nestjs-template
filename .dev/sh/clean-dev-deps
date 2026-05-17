@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+#
+# This script is needed for deleting unused deps in Docker production image.
+#
+
 rm -rf $(find ./node_modules/@next -type d -name "swc*" -maxdepth 1 | paste -s -d ' ')
 rm -rf ./node_modules/next
 rm -rf ./node_modules/@img
