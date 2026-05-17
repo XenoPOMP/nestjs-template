@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Nullable } from 'xenopomp-essentials';
 
 import type { User } from '~prisma/client';
 
@@ -22,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate({ id }: Pick<User, 'id'>) {
+  async validate({ id }: Pick<User, 'id'>): Promise<Nullable<User>> {
     return this.userService.getById(id);
   }
 }

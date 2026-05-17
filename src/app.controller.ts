@@ -10,6 +10,7 @@ export class AppController {
   @Endpoint('GET', '/', {
     code: 200,
   })
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   getHello() {
     return this.appService.getHello();
   }

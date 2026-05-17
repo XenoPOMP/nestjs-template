@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { hash } from 'argon2';
-import { StrictOmit } from 'xenopomp-essentials';
+import { Nullable, StrictOmit } from 'xenopomp-essentials';
 
 import type { User } from '~prisma/client';
 import { Prisma } from '~prisma/client';
@@ -23,7 +23,9 @@ type ServiceContract = UserServiceContract<
 export class UserService implements ServiceContract {
   constructor(private readonly prisma: PrismaService) {}
 
-  private async getByFields<U extends Prisma.UserWhereUniqueInput>(shape: U) {
+  private async getByFields<U extends Prisma.UserWhereUniqueInput>(
+    shape: U,
+  ): Promise<Nullable<User>> {
     return this.prisma.user.findUnique({
       where: {
         ...shape,
@@ -31,19 +33,19 @@ export class UserService implements ServiceContract {
     });
   }
 
-  async getById(id: User['id']) {
+  async getById(id: User['id']): Promise<Nullable<User>> {
     return this.getByFields({
       id,
     });
   }
 
-  async getByLogin(login: User['login']) {
+  async getByLogin(login: User['login']): Promise<Nullable<User>> {
     return this.getByFields({
       login,
     });
   }
 
-  async create(dto: AuthDto) {
+  async create(dto: AuthDto): Promise<User> {
     const user: Pick<User, 'login' | 'name' | 'password'> = {
       login: dto.login,
       name: '',
@@ -55,7 +57,10 @@ export class UserService implements ServiceContract {
     });
   }
 
-  async update(id: string, dto: UserDto) {
+  async update(
+    id: string,
+    dto: UserDto,
+  ): Promise<Pick<User, 'name' | 'login'>> {
     let data = dto;
 
     if (dto.password) {
@@ -74,7 +79,7 @@ export class UserService implements ServiceContract {
     });
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<void> {
     await this.prisma.user.delete({
       where: {
         id,
