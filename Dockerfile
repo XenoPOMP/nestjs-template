@@ -10,7 +10,7 @@ RUN NODE_ENV=development yarn install --frozen-lockfile
 FROM deps AS proddeps
 RUN rm -rf node_modules
 RUN yarn install --frozen-lockfile --prod --offline
-COPY .dev/sh/. /usr/local/bin
+COPY .dev/docker-scripts/. /usr/local/bin
 RUN clean-dev-deps
 RUN obfuscate ./node_modules
 
@@ -20,15 +20,15 @@ COPY prisma ./prisma/
 COPY tsconfig* nest-cli.json ./
 RUN npx prisma generate
 RUN yarn build
-COPY .dev/sh/. /usr/local/bin
+COPY .dev/docker-scripts/. /usr/local/bin
 RUN clean-dist
 
 FROM base AS runner
-COPY                    package.json        ./
-COPY                    prisma              ./prisma
-COPY --from=proddeps    /app/node_modules   ./node_modules/
-COPY --from=builder     /app/dist           ./dist/
-COPY                    .dev/sh/.           /usr/local/bin
+COPY                    package.json            ./
+COPY                    prisma                  ./prisma
+COPY --from=proddeps    /app/node_modules       ./node_modules/
+COPY --from=builder     /app/dist               ./dist/
+COPY                    .dev/docker-scripts/.   /usr/local/bin
 RUN link-engines
 EXPOSE 4242
 CMD ["yarn", "start:migrate:prod"]
