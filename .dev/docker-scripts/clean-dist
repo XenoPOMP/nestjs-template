@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+#
+# This script removes everything from dist except
+# singleton script file.
+#
+
+DELETION=$(find ./dist -type d -maxdepth 1 ! -name 'main.js')
+rm -rf $(echo $DELETION | sed 's#^./dist ##')
