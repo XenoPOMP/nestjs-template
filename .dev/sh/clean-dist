@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-find ./dist ! -name 'main.js' -delete
+DELETION=$(find ./dist -type d -maxdepth 1 ! -name 'main.js')
+rm -rf $(echo $DELETION | sed 's#^./dist ##')
