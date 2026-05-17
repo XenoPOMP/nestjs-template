@@ -1,9 +1,12 @@
 #!/usr/bin/env sh
 
 echo "🗂️ Starting linking Prisma engines"
-DEST="./dist"
 
-find ./node_modules/@prisma/engines -type f -name "libquery*" | while IFS= read -r engine; do
+DEST="./dist"
+SEARCH_PATH="./node_modules/@prisma/engines"
+PATTERN="libquery*"
+
+find $SEARCH_PATH -type f -name "$PATTERN" | while IFS= read -r engine; do
   name=$(basename $engine)
   cp $engine $DEST/$name
 done
