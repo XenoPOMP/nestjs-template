@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -21,6 +22,8 @@ async function bootstrap() {
     .setDescription('Generated from nestjs-template')
     .setVersion('1.0.0')
     .build();
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const documentFactory = () =>
     SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('openapi', app, documentFactory, {

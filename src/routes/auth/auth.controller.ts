@@ -11,6 +11,8 @@ import { Endpoint } from '@/decorators/endpoint';
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 
 import { AuthService } from './auth.service';
+import type { LogoutResponse } from './types/logout';
+import type { LoginResponse } from './types/refresh-tokens';
 
 @Controller('auth')
 export class AuthController {
@@ -19,7 +21,10 @@ export class AuthController {
   @Endpoint('POST', 'login', {
     validate: true,
   })
-  async login(@Body() dto: AuthDto, @Res({ passthrough: true }) res: Response) {
+  async login(
+    @Body() dto: AuthDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<LoginResponse> {
     const { refreshToken, ...response } = await this.authService.login(dto);
     this.authService.addRefreshTokenToResponse(res, refreshToken);
 
@@ -32,7 +37,7 @@ export class AuthController {
   async register(
     @Body() dto: AuthDto,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<LoginResponse> {
     await this.authService.register(dto);
     return this.login(dto, res);
   }
@@ -43,7 +48,7 @@ export class AuthController {
   async getNewTokens(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<LoginResponse> {
     const refreshTokenFromCookies =
       req.cookies[this.authService.REFRESH_TOKEN_NAME];
 
@@ -66,7 +71,9 @@ export class AuthController {
 
   @Endpoint('POST', 'logout')
   // eslint-disable-next-line @typescript-eslint/require-await
-  async logout(@Res({ passthrough: true }) res: Response) {
+  async logout(
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<LogoutResponse> {
     this.authService.removeRefreshTokenFromResponse(res);
 
     return {

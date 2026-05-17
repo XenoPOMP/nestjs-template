@@ -42,6 +42,8 @@ export class EnvironmentService {
 }
 
 const environmentSchema = z.object({
+  DATABASE_URL: z.string(),
+
   // For cookie assignee
   APP_HOST: z.string(),
 

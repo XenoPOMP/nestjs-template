@@ -8,10 +8,14 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { verify } from 'argon2';
 import { CookieOptions, Response } from 'express';
+
 import type { User } from '~prisma/client';
 
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 import { UserService } from '@/routes/user/user.service';
+
+import type { RefreshTokensResponse } from './types/refresh-tokens';
+import type { Tokens } from './types/tokens';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +28,7 @@ export class AuthService {
   EXPIRE_DAY_REFRESH_TOKEN: number = 1;
   REFRESH_TOKEN_NAME: string = 'refreshToken';
 
-  async login(dto: AuthDto) {
+  async login(dto: AuthDto): Promise<RefreshTokensResponse> {
     // Get user and sanitize him
     const validatedUser = await this.validateUser(dto);
     const user = this.userService.sanitize(validatedUser);
@@ -38,7 +42,7 @@ export class AuthService {
     };
   }
 
-  async register(dto: AuthDto) {
+  async register(dto: AuthDto): Promise<void> {
     const oldUser = await this.userService.getByLogin(dto.login);
 
     /** Check if user with certain email exists. */
@@ -52,7 +56,7 @@ export class AuthService {
    * is valid.
    * @param refreshToken
    */
-  async getNewTokens(refreshToken: string) {
+  async getNewTokens(refreshToken: string): Promise<RefreshTokensResponse> {
     const result = await this.jwt.verifyAsync(refreshToken);
     if (!result) throw new UnauthorizedException('Invalid refresh token');
 
@@ -85,7 +89,7 @@ export class AuthService {
   }
 
   /** Add refreshToken to server cookies. */
-  addRefreshTokenToResponse(res: Response, refreshToken: string) {
+  addRefreshTokenToResponse(res: Response, refreshToken: string): void {
     const expiresIn = new Date();
     expiresIn.setDate(expiresIn.getDate() + this.EXPIRE_DAY_REFRESH_TOKEN);
 
@@ -96,7 +100,7 @@ export class AuthService {
   }
 
   /** Clear cookie header of response. */
-  removeRefreshTokenFromResponse(res: Response) {
+  removeRefreshTokenFromResponse(res: Response): void {
     res.cookie(this.REFRESH_TOKEN_NAME, '', {
       ...this.getResponseConfig(),
       expires: new Date(0),
@@ -104,7 +108,7 @@ export class AuthService {
   }
 
   /** Generates both of access and refresh tokens. */
-  private issueToken(userId: User['id']) {
+  private issueToken(userId: User['id']): Tokens {
     const data = { id: userId };
 
     const accessToken = this.jwt.sign(data, {
@@ -125,7 +129,7 @@ export class AuthService {
    * Checks if user with certain email exists
    * and return him.
    */
-  private async validateUser(dto: AuthDto) {
+  private async validateUser(dto: AuthDto): Promise<User> {
     const user = await this.userService.getByLogin(dto.login);
 
     if (!user) throw new NotFoundException('User not found');

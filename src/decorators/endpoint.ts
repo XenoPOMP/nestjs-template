@@ -59,6 +59,7 @@ interface EndpointOptions {
  *
  * // GET http://localhost:3001/test 201
  */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function Endpoint(type: Method, path?: Path, options?: EndpointOptions) {
   const HttpMethod = methodsMap[type];
 

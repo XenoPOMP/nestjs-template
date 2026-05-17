@@ -14,8 +14,8 @@ jobs:
     strategy:
       matrix:
         NODE_VERSION:
-          - '20'
           - '22'
+          - '24'
 
     runs-on: ubuntu-latest
     permissions:
