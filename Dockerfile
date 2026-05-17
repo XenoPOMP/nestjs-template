@@ -16,7 +16,7 @@ RUN obfuscate ./node_modules
 
 FROM deps AS builder
 COPY src ./src/
-COPY prisma ./prisma/
+COPY ./prisma/schema.prisma ./prisma/schema.prisma
 COPY tsconfig* nest-cli.json ./
 RUN npx prisma generate
 RUN yarn build
