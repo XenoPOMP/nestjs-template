@@ -5,5 +5,5 @@ DEST="./dist"
 
 find ./node_modules/@prisma/engines -type f -name "libquery*" | while IFS= read -r engine; do
   name=$(basename $engine)
-  ln -s $engine $DEST/$name
+  cp $engine $DEST/$name
 done
