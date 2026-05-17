@@ -22,8 +22,9 @@ RUN yarn build
 RUN rm -rf ./dist/prisma ./dist/scripts ./dist/src
 
 FROM base AS runner
-COPY package.json ./
+COPY                    package.json        ./
+COPY                    prisma              ./prisma
 COPY --from=proddeps    /app/node_modules   ./node_modules/
-COPY --from=builder     /app/dist ./dist/
+COPY --from=builder     /app/dist           ./dist/
 EXPOSE 4242
 CMD ["tail", "-f", "/dev/null"]
