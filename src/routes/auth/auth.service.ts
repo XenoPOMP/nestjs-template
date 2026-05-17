@@ -30,14 +30,12 @@ export class AuthService {
 
   async login(dto: AuthDto): Promise<RefreshTokensResponse> {
     // Get user and sanitize him
-    const validatedUser = await this.validateUser(dto);
-    const user = this.userService.sanitize(validatedUser);
-
-    /** Access and refresh tokens */
+    const user = await this.validateUser(dto);
+    // Access and refresh tokens
     const tokens = this.issueToken(user.id);
 
     return {
-      user,
+      user: this.userService.sanitize(user),
       ...tokens,
     };
   }
@@ -60,15 +58,13 @@ export class AuthService {
     const result = await this.jwt.verifyAsync(refreshToken);
     if (!result) throw new UnauthorizedException('Invalid refresh token');
 
-    const fetchedUser = await this.userService.getById(result.id);
-    if (!fetchedUser) throw new NotFoundException('User not found');
-
-    const user = this.userService.sanitize(fetchedUser);
+    const user = await this.userService.getById(result.id);
+    if (!user) throw new NotFoundException('User not found');
 
     const tokens = this.issueToken(user.id);
 
     return {
-      user,
+      user: this.userService.sanitize(user),
       ...tokens,
     };
   }
