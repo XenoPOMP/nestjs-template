@@ -20,5 +20,5 @@ model User {
   name     String?
   password String
 
-  @@map("user")
+  @@map("users")
 }

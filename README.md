@@ -9,8 +9,8 @@ Nest.js Starter
 ## 🫆 Preparing for local development
 The initial database setup is needed. After setting up ``.env`` file, please, run these commands:
 ```shell
-npx prisma generate
 yarn migrate:dev --name init
+npx prisma generate
 ```
 This script will generate database and apply all the migrations for it, also it will generate local client.
 
