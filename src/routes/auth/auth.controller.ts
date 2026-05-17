@@ -8,7 +8,9 @@ import {
 import { Request, Response } from 'express';
 
 import { Endpoint } from '@/decorators/endpoint';
+import { CurrentUser } from '@/routes/auth/decorators/user.decorator';
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
+import { UserService } from '@/routes/user/user.service';
 
 import { AuthService } from './auth.service';
 import type { LogoutResponse } from './types/logout';
@@ -16,7 +18,10 @@ import type { LoginResponse } from './types/refresh-tokens';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   @Endpoint('POST', 'login', {
     validate: true,
@@ -74,6 +79,21 @@ export class AuthController {
   async logout(
     @Res({ passthrough: true }) res: Response,
   ): Promise<LogoutResponse> {
+    this.authService.removeRefreshTokenFromResponse(res);
+
+    return {
+      logout: true,
+    };
+  }
+
+  @Endpoint('DELETE', '/delete-profile', {
+    authRequired: true,
+  })
+  async deleteProfile(
+    @CurrentUser('id') userId: string,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<LogoutResponse> {
+    await this.userService.delete(userId);
     this.authService.removeRefreshTokenFromResponse(res);
 
     return {
