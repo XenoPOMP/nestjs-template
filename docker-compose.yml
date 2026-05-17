@@ -35,8 +35,7 @@ services:
       database:
         ipv4_address: 172.20.1.5
     environment:
-      - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.1.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
-      - DIRECT_DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.1.6:5432/${PGDATABASE}?schema=public&connect_timeout=300
+      - DATABASE_URL=postgresql://${PGUSER}:${PGPASSWORD}@172.20.1.6:5432/${PGDATABASE}?schema=public
       - JWT_SECRET=${JWT_SECRET}
       - APP_HOST=${APP_HOST}
       - TZ
