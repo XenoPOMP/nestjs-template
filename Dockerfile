@@ -21,13 +21,14 @@ RUN npx prisma generate
 RUN yarn build
 COPY .dev/sh/. /usr/local/bin
 RUN clean-dist
-RUN link-engines
 
 FROM base AS runner
 COPY                    package.json        ./
 COPY                    prisma              ./prisma
 COPY --from=proddeps    /app/node_modules   ./node_modules/
 COPY --from=builder     /app/dist           ./dist/
+COPY                    .dev/sh/.           /usr/local/bin
+RUN link-engines
 EXPOSE 4242
 CMD ["tail", "-f", "/dev/null"]
 #CMD ["yarn", "start:migrate:prod"]
