@@ -6,6 +6,12 @@ DEST="./dist"
 SEARCH_PATH="./node_modules/@prisma/engines"
 PATTERN="libquery*"
 
+# Ensure that engines will be found in search folder
+if [[ "$(find $SEARCH_PATH -type f -name "$PATTERN")" == "" ]]; then
+  echo "🛑 Did not found any engines"
+  exit 1
+fi
+
 find $SEARCH_PATH -type f -name "$PATTERN" | while IFS= read -r engine; do
   name=$(basename $engine)
   cp $engine $DEST/$name
