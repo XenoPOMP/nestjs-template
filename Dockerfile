@@ -31,5 +31,4 @@ COPY --from=builder     /app/dist           ./dist/
 COPY                    .dev/sh/.           /usr/local/bin
 RUN link-engines
 EXPOSE 4242
-#CMD ["tail", "-f", "/dev/null"]
 CMD ["yarn", "start:migrate:prod"]
