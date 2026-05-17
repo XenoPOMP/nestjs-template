@@ -24,7 +24,7 @@ services:
   backend:
     build: .
     container_name: nestjs-template-backend
-    restart: unless-stopped
+    restart: no
     ports:
       - "${PORT:-4242}:4242"
     depends_on:
