@@ -12,6 +12,7 @@ RUN rm -rf node_modules
 RUN yarn install --frozen-lockfile --prod --offline
 COPY .dev/sh/. /usr/local/bin
 RUN clean-dev-deps
+RUN obfuscate ./node_modules
 
 FROM deps AS builder
 COPY src ./src/
