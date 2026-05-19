@@ -28,7 +28,9 @@ RUN clean-dist
 FROM base AS runner
 COPY package.json prisma.config.ts ./
 COPY prisma ./prisma
-COPY --from=proddeps /app/node_modules ./node_modules/
+COPY --from=proddeps --chown=node:node /app/node_modules ./node_modules/
 COPY --from=builder /app/dist ./dist/
+
+USER node
 EXPOSE 4242
 CMD ["yarn", "start:migrate:prod"]
