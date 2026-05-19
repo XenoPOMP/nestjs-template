@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -19,14 +20,20 @@ import type { Tokens } from './types/tokens';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
+  readonly EXPIRE_DAY_REFRESH_TOKEN: number = 1;
+  readonly REFRESH_TOKEN_NAME: string = 'refreshToken';
+
   constructor(
     private readonly jwt: JwtService,
     private readonly userService: UserService,
     private readonly env: EnvironmentService,
-  ) {}
-
-  EXPIRE_DAY_REFRESH_TOKEN: number = 1;
-  REFRESH_TOKEN_NAME: string = 'refreshToken';
+  ) {
+    this.logger.log(
+      `Cross-origin allowed: ${this.env.schema.ALLOW_CROSS_ORIGIN}`,
+    );
+  }
 
   async login(dto: AuthDto): Promise<RefreshTokensResponse> {
     // Get user and sanitize him
@@ -71,7 +78,7 @@ export class AuthService {
 
   /** Returns config for cookie response. */
   private getResponseConfig(): CookieOptions {
-    const { APP_HOST } = this.env.schema;
+    const { APP_HOST, ALLOW_CROSS_ORIGIN: allowCrossOrigin } = this.env.schema;
     const isProduction: boolean = this.env.isProduction();
 
     return {
@@ -80,7 +87,7 @@ export class AuthService {
       // true if production
       secure: isProduction,
       // lax is rule that accepts GET request from cross-origin
-      sameSite: isProduction ? 'lax' : 'none',
+      sameSite: isProduction && !allowCrossOrigin ? 'lax' : false,
     };
   }
 

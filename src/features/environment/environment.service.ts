@@ -26,7 +26,7 @@ import { z } from 'zod';
 @Injectable()
 export class EnvironmentService {
   /** This schema is being parsed on service initialization. */
-  schema: z.infer<typeof environmentSchema>;
+  readonly schema: z.infer<typeof environmentSchema>;
 
   constructor(private readonly configService: ConfigService) {
     this.schema = environmentSchema.parse(process.env);
@@ -49,6 +49,7 @@ const environmentSchema = z.object({
 
   // Other
   JWT_SECRET: z.string(),
+
   NODE_ENV: z
     .union([
       z.literal('development'),
@@ -56,6 +57,11 @@ const environmentSchema = z.object({
       z.literal('test'),
     ])
     .default('development'),
+
+  ALLOW_CROSS_ORIGIN: z
+    .string()
+    .optional()
+    .transform(str => str === 'true'),
 });
 
 export type EnvironmentSchema = z.infer<typeof environmentSchema>;

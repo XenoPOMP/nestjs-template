@@ -39,6 +39,7 @@ services:
       - JWT_SECRET=${JWT_SECRET}
       - APP_HOST=${APP_HOST}
       - TZ
+      - ALLOW_CROSS_ORIGIN
 
 volumes:
   db_data:
