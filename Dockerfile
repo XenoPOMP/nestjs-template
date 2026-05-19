@@ -9,7 +9,9 @@ RUN NODE_ENV=development yarn install --frozen-lockfile
 
 FROM deps AS proddeps
 RUN rm -rf node_modules
-RUN yarn install --frozen-lockfile --prod --offline
+RUN yarn install --frozen-lockfile \
+    --production --ignore-scripts \
+    --prefer-offline --offline
 COPY .dev/docker-scripts/. /usr/local/bin
 RUN clean-dev-deps
 RUN obfuscate ./node_modules
