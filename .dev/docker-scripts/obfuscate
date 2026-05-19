@@ -27,9 +27,10 @@ echo "🗑️ Removed all TypeScript files"
 
 echo "⬇️ Starting minify script"
 if [[ "$(basename $FOLDER)" == "node_modules" ]]; then
-  npx --yes modclean -n default:safe --run
   npx --yes @slsplus/node-prune
   npx --yes @usex/prune-mod
+  npx --yes modclean -n default:safe,default:caution --run
+  npx --yes diarrhea -n default:safe,default:caution --run
 else
   npx --yes minify-all-js $FOLDER --json
 fi
