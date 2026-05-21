@@ -18,11 +18,14 @@ RUN clean-dev-deps
 RUN obfuscate ./node_modules
 
 FROM deps AS builder
-COPY src ./src/
+# Generate prisma client
 COPY ./prisma/schema.prisma ./prisma/schema.prisma
-COPY tsconfig* nest-cli.json ./
 RUN npx prisma generate
+# Build sources
+COPY src ./src/
+COPY tsconfig* nest-cli.json ./
 RUN yarn build
+# Clead dist folder
 COPY .dev/docker-scripts/clean-dist /usr/local/bin
 RUN clean-dist
 
