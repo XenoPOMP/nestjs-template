@@ -4,7 +4,7 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { isDayjs } from 'dayjs';
+import dayjs, { isDayjs } from 'dayjs';
 import { Observable, map } from 'rxjs';
 
 @Injectable()
@@ -28,6 +28,10 @@ export class DayjsInterceptor implements NestInterceptor {
     // If it's a Date object, convert it to your desired type (e.g., Unix timestamp number)
     if (isDayjs(obj)) {
       return obj.format();
+    }
+    // Convert Date to dayjs as well
+    if (obj instanceof Date) {
+      return dayjs(obj).format();
     }
 
     // Recursively handle arrays
