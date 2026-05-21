@@ -1,4 +1,4 @@
-import type { Undefinable } from 'xenopomp-essentials';
+import type { Optional } from 'xenopomp-essentials';
 
 import type { AnyDecorator } from '@/types/any-decorator';
 
@@ -7,7 +7,7 @@ import type { AnyDecorator } from '@/types/any-decorator';
  * @param decorators
  */
 export default function applyOptionalDecorators(
-  ...decorators: Undefinable<AnyDecorator>[]
+  ...decorators: Optional<AnyDecorator>[]
 ): AnyDecorator[] {
   return decorators.filter(dec => dec !== undefined);
 }

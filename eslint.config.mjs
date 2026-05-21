@@ -42,6 +42,7 @@ export default tseslint.config(
       '@typescript-eslint/no-redundant-type-constituents': 'off',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/no-deprecated': 'error',
     },
   },
 );
