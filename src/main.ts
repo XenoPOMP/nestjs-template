@@ -26,6 +26,7 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const documentFactory = () =>
     SwaggerModule.createDocument(app, swaggerConfig);
+
   SwaggerModule.setup('openapi', app, documentFactory, {
     yamlDocumentUrl: 'openapi.yaml',
     jsonDocumentUrl: 'openapi.json',
