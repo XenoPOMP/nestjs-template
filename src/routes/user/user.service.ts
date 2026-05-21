@@ -94,7 +94,7 @@ export class UserService implements ServiceContract {
     data: Shape,
   ): StrictOmit<Shape, UserSensitiveKeys> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, login, password, ...user } = data;
+    const { id, login, password, updatedAt, ...user } = data;
     return user;
   }
 }
