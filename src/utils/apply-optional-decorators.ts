@@ -1,6 +1,7 @@
+import { applyDecorators } from '@nestjs/common';
 import type { Optional } from 'xenopomp-essentials';
 
-import type { AnyDecorator } from '@/types/any-decorator';
+import type { AnyDecorator, AppliedDecorators } from '@/types/any-decorator';
 
 /**
  * Apply decorators conditionally.
@@ -8,6 +9,9 @@ import type { AnyDecorator } from '@/types/any-decorator';
  */
 export default function applyOptionalDecorators(
   ...decorators: Optional<AnyDecorator>[]
-): AnyDecorator[] {
-  return decorators.filter(dec => dec !== undefined);
+): AppliedDecorators {
+  const definedDecorators: AnyDecorator[] = decorators.filter(
+    dec => dec !== undefined,
+  );
+  return applyDecorators(...definedDecorators);
 }
