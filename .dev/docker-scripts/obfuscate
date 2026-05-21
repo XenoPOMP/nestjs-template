@@ -27,10 +27,9 @@ echo "🗑️ Removed all TypeScript files"
 
 echo "⬇️ Starting minify script"
 if [[ "$(basename $FOLDER)" == "node_modules" ]]; then
-  npx --yes @slsplus/node-prune
-  npx --yes @usex/prune-mod
-  npx --yes modclean -n default:safe,default:caution --run
-  npx --yes diarrhea -n default:safe,default:caution --run
+  IGNORED_MODULES="swagger-ui-dist"
+  npx --yes modclean -n default:safe,default:caution --run -i "$IGNORED_MODULES"
+  npx --yes diarrhea -n default:safe,default:caution --run -i "$IGNORED_MODULES"
 else
   npx --yes minify-all-js $FOLDER --json
 fi
