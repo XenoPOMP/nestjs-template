@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { hash } from 'argon2';
 import { Nullable, StrictOmit } from 'xenopomp-essentials';
 
@@ -59,17 +59,22 @@ export class UserService implements ServiceContract {
   }
 
   async update(id: string, dto: UserDto): Promise<Nullable<User>> {
-    let data = dto;
+    const data = dto;
+    const user = await this.getById(id);
+    // Ensure that user with that id exists
+    if (user === null) throw new NotFoundException('User not found');
 
-    if (dto.password) {
-      data = { ...dto, password: await hash(dto.password) };
-    }
+    // Assign new fields to user
+    const name: Nullable<string> = data.name ?? user.name;
+    const payload = {
+      name,
+    };
 
     return this.prisma.user.update({
       where: {
         id,
       },
-      data,
+      data: payload,
     });
   }
 
@@ -90,6 +95,6 @@ export class UserService implements ServiceContract {
   ): StrictOmit<Shape, UserSensitiveKeys> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, login, password, ...user } = data;
-    return user as StrictOmit<Shape, UserSensitiveKeys>;
+    return user;
   }
 }
