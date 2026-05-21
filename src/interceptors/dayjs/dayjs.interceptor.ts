@@ -25,7 +25,7 @@ export class DayjsInterceptor implements NestInterceptor {
       return obj;
     }
 
-    // If it's a Date object, convert it to your desired type (e.g., Unix timestamp number)
+    // If it's a Dayjs object, convert it to your desired type (e.g., Unix timestamp number)
     if (isDayjs(obj)) {
       return obj.format();
     }
