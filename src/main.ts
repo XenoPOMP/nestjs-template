@@ -3,6 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
+import './features/dayjs';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function bootstrap() {
