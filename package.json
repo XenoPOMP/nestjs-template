@@ -23,7 +23,9 @@
     "studio": "npx prisma studio",
     "prepare": "husky",
     "ci:lint": "yarn lint --max-warnings=0",
-    "ci:test": "yarn test --passWithNoTests"
+    "ci:test": "yarn test --passWithNoTests",
+    "pack:env": "npx -y tsx ./.dev/scripts/pack-env.ts",
+    "knip": "npx -y knip"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
