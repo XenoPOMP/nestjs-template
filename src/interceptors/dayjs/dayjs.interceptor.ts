@@ -29,8 +29,11 @@ export class DayjsInterceptor implements NestInterceptor {
     if (isDayjs(obj)) {
       return obj.format();
     }
-    // Convert Date to dayjs as well
-    if (obj instanceof Date) {
+    // Convert Date and all valid strings to dayjs as well
+    if (
+      obj instanceof Date ||
+      (typeof obj === 'string' && dayjs(obj).isValid())
+    ) {
       return dayjs(obj).format();
     }
 
