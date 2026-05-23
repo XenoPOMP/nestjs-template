@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { hash } from 'argon2';
+import dayjs from 'dayjs';
 import { Nullable, StrictOmit } from 'xenopomp-essentials';
 
 import type { User } from '~prisma/client';
@@ -9,6 +10,7 @@ import { UserServiceContract } from '@/contracts/user-service.contract';
 import { PrismaService } from '@/features/prisma/prisma.service';
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 import { UserDto } from '@/routes/user/dto/user.dto';
+import { FormattedDatesDeep } from '@/types/formatted-dates-deep';
 import { UserSensitiveKeys } from '@/types/sanitized-user';
 import { SelectiveRequired } from '@/types/selective-required';
 
@@ -92,9 +94,12 @@ export class UserService implements ServiceContract {
    */
   sanitize<Shape extends SelectiveRequired<Partial<User>, UserSensitiveKeys>>(
     data: Shape,
-  ): StrictOmit<Shape, UserSensitiveKeys> {
+  ): FormattedDatesDeep<StrictOmit<Shape, UserSensitiveKeys>> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, login, password, updatedAt, ...user } = data;
-    return user;
+    const { id, login, password, updatedAt, createdAt, ...user } = data;
+    return {
+      ...user,
+      createdAt: dayjs(createdAt),
+    } as FormattedDatesDeep<StrictOmit<Shape, UserSensitiveKeys>>;
   }
 }

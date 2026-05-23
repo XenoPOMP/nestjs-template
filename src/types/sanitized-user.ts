@@ -2,6 +2,7 @@ import type { StrictOmit } from 'xenopomp-essentials';
 
 import type { User } from '~prisma/client';
 
+import type { FormattedDatesDeep } from '@/types/formatted-dates-deep';
 import type { SelectKeys } from '@/types/select-keys';
 
 /**
@@ -15,4 +16,6 @@ export type UserSensitiveKeys = SelectKeys<
 /**
  * Defines a return-safe User type with erased sensitive data.
  */
-export type SanitizedUser = StrictOmit<User, UserSensitiveKeys>;
+export type SanitizedUser = FormattedDatesDeep<
+  StrictOmit<User, UserSensitiveKeys>
+>;
