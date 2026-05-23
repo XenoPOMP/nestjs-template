@@ -3,8 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 
-import { DayjsInterceptor } from '@/interceptors/dayjs/dayjs.interceptor';
-
 import { AppModule } from './app.module';
 import './features/dayjs';
 
@@ -38,9 +36,6 @@ async function bootstrap() {
     // TODO Opt-in disable public Swagger UI endpoint
     swaggerUiEnabled: true,
   });
-
-  // Setup global interceptors
-  app.useGlobalInterceptors(new DayjsInterceptor());
 
   // Default port is 4242
   const port: number = process.env.PORT ? +process.env.PORT : 4242;
