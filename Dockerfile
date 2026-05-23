@@ -12,17 +12,21 @@ RUN rm -rf node_modules
 RUN yarn install --frozen-lockfile \
     --production --ignore-scripts \
     --prefer-offline --offline
-COPY .dev/docker-scripts/. /usr/local/bin
+COPY .dev/docker-scripts/clean-dev-deps .dev/docker-scripts/obfuscate \
+     /usr/local/bin/
 RUN clean-dev-deps
 RUN obfuscate ./node_modules
 
 FROM deps AS builder
-COPY src ./src/
+# Generate prisma client
 COPY ./prisma/schema.prisma ./prisma/schema.prisma
-COPY tsconfig* nest-cli.json ./
 RUN npx prisma generate
+# Build sources
+COPY src ./src/
+COPY tsconfig* nest-cli.json ./
 RUN yarn build
-COPY .dev/docker-scripts/. /usr/local/bin
+# Clead dist folder
+COPY .dev/docker-scripts/clean-dist /usr/local/bin
 RUN clean-dist
 
 FROM base AS runner

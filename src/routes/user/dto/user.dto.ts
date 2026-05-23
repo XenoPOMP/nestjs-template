@@ -1,4 +1,4 @@
-import { IsOptionalString } from '@/decorators/validation';
+import { IsOptionalString } from '@/decorators/validation/string';
 
 export class UserDto {
   @IsOptionalString()

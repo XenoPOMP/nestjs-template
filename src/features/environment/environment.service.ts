@@ -56,7 +56,7 @@ const environmentSchema = z.object({
       z.literal('production'),
       z.literal('test'),
     ])
-    .default('development'),
+    .optional(),
 
   ALLOW_CROSS_ORIGIN: z
     .string()

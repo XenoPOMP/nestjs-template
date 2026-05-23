@@ -1,12 +1,17 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 
+import { DayjsInterceptor } from '@/interceptors/dayjs/dayjs.interceptor';
+
 import { AppModule } from './app.module';
+import './features/dayjs';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const logger = new Logger('After start');
 
   // Middlewares
   app.use(cookieParser());
@@ -34,7 +39,13 @@ async function bootstrap() {
     swaggerUiEnabled: true,
   });
 
-  await app.listen(process.env.PORT ?? 4242);
+  // Setup global interceptors
+  app.useGlobalInterceptors(new DayjsInterceptor());
+
+  // Default port is 4242
+  const port: number = process.env.PORT ? +process.env.PORT : 4242;
+  await app.listen(port);
+  logger.log(`App is running at port ${port}`);
 }
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 bootstrap();

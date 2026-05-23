@@ -1,19 +1,15 @@
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import { IsRequiredString } from '@/decorators/validation/string';
 
 export class AuthDto {
-  @IsString()
-  @MinLength(5, {
-    message: 'login must be at least 5 characters long',
-  })
-  @MaxLength(15, {
-    message: 'login must be not longer then 5 characters long',
+  @IsRequiredString({
+    min: [5, 'login must be at least 5 characters long'],
+    max: [15, 'login must be no longer then 5 characters long'],
   })
   // @ts-expect-error class-validator handles this class
   login: string;
 
-  @IsString()
-  @MinLength(6, {
-    message: 'password must be at least 6 characters long',
+  @IsRequiredString({
+    min: [6, 'password must be at least 6 characters long'],
   })
   // @ts-expect-error class-validator handles this class
   password: string;
