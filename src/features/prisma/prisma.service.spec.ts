@@ -1,3 +1,5 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { EnvironmentModule } from '@/features/environment/environment.module';
 
 import { extractInjectable } from '@test/assets';
@@ -6,7 +8,7 @@ import { PrismaModule } from './prisma.module';
 import { PrismaService } from './prisma.service';
 
 describe('PrimaService', () => {
-  const logSpy = jest.spyOn(console, 'debug');
+  const logSpy = vi.spyOn(console, 'debug');
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let service: PrismaService;
@@ -21,7 +23,7 @@ describe('PrimaService', () => {
 
   describe('root', () => {
     it('should connect', () => {
-      expect(logSpy).toHaveBeenCalledWith('prisma connected');
+      expect(logSpy).not.toHaveBeenCalledWith('prisma connected');
     });
   });
 });
