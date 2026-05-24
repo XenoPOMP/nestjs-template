@@ -11,6 +11,7 @@ export default tseslint.config(
       './dist/*',
       './prisma/generated/*',
       './.dev/scripts/*',
+      './test/jest.setup.js',
     ],
   },
   eslint.configs.recommended,
