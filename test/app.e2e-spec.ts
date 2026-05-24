@@ -3,6 +3,7 @@ import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 import * as request from 'supertest';
 import type { App } from 'supertest/types';
+import { beforeEach, describe, it } from 'vitest';
 
 import { AppModule } from './../src/app.module';
 

@@ -1,3 +1,5 @@
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+
 import { extractInjectable } from '@test/assets';
 
 import { EnvironmentModule } from './environment.module';
