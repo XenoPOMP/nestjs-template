@@ -5,7 +5,7 @@ import {
   ValidatorConstraintInterface,
   registerDecorator,
 } from 'class-validator';
-import dayjs, { isDayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 /**
  * Checks if provided string is Dayjs compliant.
@@ -27,11 +27,7 @@ export function IsDayjsString(validationOptions?: ValidationOptions) {
 class IsDayjsStringConstraint implements ValidatorConstraintInterface {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   validate(value: any, _args?: ValidationArguments): boolean {
-    if (typeof value === 'string') {
-      return dayjs(value).isValid();
-    }
-    // If dayjs value somehow is passed here, mark as valid
-    return isDayjs(value);
+    return typeof value === 'string' && dayjs(value).isValid();
   }
 
   defaultMessage(args: ValidationArguments): string {
