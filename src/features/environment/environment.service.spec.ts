@@ -1,5 +1,4 @@
-import type { TestingModule } from '@nestjs/testing';
-import { Test } from '@nestjs/testing';
+import { extractInjectable } from '../../../test/assets';
 
 import { EnvironmentModule } from './environment.module';
 import { EnvironmentService } from './environment.service';
@@ -34,10 +33,11 @@ describe('EnvironmentService', () => {
   });
 
   async function parseEnv(): Promise<void> {
-    const app: TestingModule = await Test.createTestingModule({
+    const [envService] = await extractInjectable({
       imports: [EnvironmentModule],
-    }).compile();
+      type: EnvironmentService,
+    });
 
-    env = app.get(EnvironmentService);
+    env = envService;
   }
 });
