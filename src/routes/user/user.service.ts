@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { hash } from 'argon2';
 import dayjs from 'dayjs';
 import { Nullable, StrictOmit } from 'xenopomp-essentials';
 
@@ -7,6 +6,7 @@ import type { User } from '~prisma/client';
 import { Prisma } from '~prisma/client';
 
 import { UserServiceContract } from '@/contracts/user-service.contract';
+import { ArgonService } from '@/features/argon/argon.service';
 import { PrismaService } from '@/features/prisma/prisma.service';
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 import { UserDto } from '@/routes/user/dto/user.dto';
@@ -24,7 +24,10 @@ type ServiceContract = UserServiceContract<
 
 @Injectable()
 export class UserService implements ServiceContract {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly argonService: ArgonService,
+  ) {}
 
   private getByFields<U extends Prisma.UserWhereUniqueInput>(
     shape: U,
@@ -52,7 +55,7 @@ export class UserService implements ServiceContract {
     const user: Pick<User, 'login' | 'name' | 'password'> = {
       login: dto.login,
       name: '',
-      password: await hash(dto.password),
+      password: await this.argonService.hash(dto.password),
     };
 
     return this.prisma.user.create({

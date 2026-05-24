@@ -6,11 +6,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { verify } from 'argon2';
 import { CookieOptions, Response } from 'express';
 
 import type { User } from '~prisma/client';
 
+import { ArgonService } from '@/features/argon/argon.service';
 import { EnvironmentService } from '@/features/environment/environment.service';
 import { AuthDto } from '@/routes/auth/dto/auth.dto';
 import { UserService } from '@/routes/user/user.service';
@@ -29,6 +29,7 @@ export class AuthService {
     private readonly jwt: JwtService,
     private readonly userService: UserService,
     private readonly env: EnvironmentService,
+    private readonly argonService: ArgonService,
   ) {
     this.logger.log(
       `Cross-origin allowed: ${this.env.schema.ALLOW_CROSS_ORIGIN}`,
@@ -138,7 +139,10 @@ export class AuthService {
     if (!user) throw new NotFoundException('User not found');
 
     /** True if password from dto is valid. */
-    const isValid = await verify(user.password, dto.password);
+    const isValid: boolean = await this.argonService.verify(
+      user.password,
+      dto.password,
+    );
 
     if (!isValid) throw new UnauthorizedException('Invalid password');
 
