@@ -138,7 +138,7 @@ export class AuthService {
 
     if (!user) throw new NotFoundException('User not found');
 
-    /** True if password from dto is valid. */
+    // True if password from dto is valid.
     const isValid: boolean = await this.argonService.verify(
       user.password,
       dto.password,
