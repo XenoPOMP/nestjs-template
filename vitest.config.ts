@@ -8,7 +8,16 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['text', 'json', 'json-summary', 'html'],
       include: ['./**/*.(t|j)s'],
-      exclude: ['./prisma/generated/*', '.dev/*', 'dist/*', 'test/*'],
+      exclude: [
+        './prisma/generated/*',
+        '.dev/*',
+        'dist/*',
+        'test/*',
+
+        // Metadata
+        './src/main.ts',
+        '**/*.module.ts',
+      ],
     },
   },
   resolve: {
