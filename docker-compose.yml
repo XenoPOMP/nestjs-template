@@ -27,7 +27,7 @@ services:
     container_name: nestjs-template-backend
     restart: unless-stopped
     ports:
-      - "${PORT:-4242}:4242"
+      - "${PORT:-4242}:${PORT:-4242}"
     depends_on:
       db:
         condition: service_healthy
@@ -40,6 +40,7 @@ services:
       - APP_HOST=${APP_HOST}
       - TZ
       - ALLOW_CROSS_ORIGIN
+      - PORT=${PORT:-4242}
 
 volumes:
   db_data:

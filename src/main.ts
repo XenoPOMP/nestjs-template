@@ -1,9 +1,11 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import c from 'ansi-colors';
 import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
+//  Run side effect to set up dayjs with plugins
 import './features/dayjs';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -40,7 +42,9 @@ async function bootstrap() {
   // Default port is 4242
   const port: number = process.env.PORT ? +process.env.PORT : 4242;
   await app.listen(port);
-  logger.log(`App is running at port ${port}`);
+  logger.log(
+    `${c.italic('App is running at port')} ${c.bold.blue(port.toString())}`,
+  );
 }
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 bootstrap();

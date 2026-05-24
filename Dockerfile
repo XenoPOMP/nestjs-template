@@ -20,7 +20,8 @@ RUN obfuscate ./node_modules
 FROM deps AS builder
 # Generate prisma client
 COPY ./prisma/schema.prisma ./prisma/schema.prisma
-RUN npx prisma generate
+COPY ./prisma/models ./prisma/models
+RUN npx prisma generate --schema ./prisma
 # Build sources
 COPY src ./src/
 COPY tsconfig* nest-cli.json ./

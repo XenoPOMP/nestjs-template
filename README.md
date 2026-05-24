@@ -21,6 +21,20 @@ This script will generate database and apply all the migrations for it, also it 
 - 🍪 Simple JWT Auth
 - 🟢 OpenAPI specs (powered by ``@nestjs/swagger``)
 
+## 🫗 Prisma
+Folder structure looks like this:
+```
+./prisma
+├── migrations
+│   ├── ... your migrations
+│   └── migration_lock.toml
+├── models
+│   └── user.prisma
+│   └── ... your other models
+└── schema.prisma
+```
+You should create models in separate files, located in ``./prisma/models`` folder.
+
 ## 🟢 OpenAPI
 
 - Swagger UI: http://localhost:4242/openapi
