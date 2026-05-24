@@ -16,7 +16,6 @@
     "test": "jest --setupFiles dotenv/config --setupFilesAfterEnv ../test/jest.setup.js",
     "test:watch": "yarn test --watch",
     "test:cov": "yarn test --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate:dev": "npx prisma migrate dev",
     "postmigrate:dev": "npx prisma generate",
