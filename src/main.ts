@@ -5,6 +5,7 @@ import c from 'ansi-colors';
 import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
+//  Run side effect to set up dayjs with plugins
 import './features/dayjs';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
