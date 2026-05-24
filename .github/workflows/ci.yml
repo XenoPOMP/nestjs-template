@@ -58,4 +58,4 @@ jobs:
       - name: '🧪 Running tests'
         run: yarn ci:test
         env:
-          DATABASE_URL: postgresql://rt:pwd@localhost:5432/testing?schema=public
+          DATABASE_URL: postgresql://rt:pwd@localhost:5432/testing-db?schema=public
