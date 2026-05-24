@@ -52,6 +52,8 @@ jobs:
 
       - name: '📋 Prepare database'
         run: yarn migrate:dev --name init
+        env:
+          DATABASE_URL: postgresql://rt:pwd@localhost:5432/testing-db?schema=public
 
       - name: '📕 Linting'
         run: yarn ci:lint
