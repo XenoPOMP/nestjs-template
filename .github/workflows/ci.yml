@@ -50,6 +50,9 @@ jobs:
       - name: '📦 Install dependencies'
         run: yarn install --frozen-lockfile
 
+      - name: '📋 Prepare database'
+        run: yarn migrate:dev --name init
+
       - name: '📕 Linting'
         run: yarn ci:lint
 
