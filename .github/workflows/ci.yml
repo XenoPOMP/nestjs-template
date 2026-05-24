@@ -23,6 +23,22 @@ jobs:
       contents: read
       pull-requests: write
 
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: testing-db
+          POSTGRES_USER: rt
+          POSTGRES_PASSWORD: pwd
+        ports:
+          - 5432:5432
+        # Health check to ensure Postgres is ready before steps run
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v4
 
@@ -38,6 +54,8 @@ jobs:
         run: yarn ci:lint
 
       # Start to run our inline jobs
-      # Vitest
+      # Test
       - name: '🧪 Running tests'
         run: yarn ci:test
+        env:
+          DATABASE_URL: postgresql://rt:pwd@localhost:5432/testing?schema=public
