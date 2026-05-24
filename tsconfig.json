@@ -23,7 +23,8 @@
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"],
-      "~prisma/*": ["./prisma/generated/*"]
+      "~prisma/*": ["./prisma/generated/*"],
+      "@test/*": ["./test/*"]
     }
   },
   "include": [

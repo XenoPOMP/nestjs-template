@@ -14,7 +14,7 @@ describe('ArgonService', () => {
       imports: [EnvironmentModule, ArgonModule],
     }).compile();
 
-    argonService = app.get<ArgonService>(ArgonService);
+    argonService = app.get(ArgonService);
   });
 
   describe('root', () => {
