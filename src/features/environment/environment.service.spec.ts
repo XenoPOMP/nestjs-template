@@ -1,4 +1,4 @@
-import { extractInjectable } from '../../../test/assets';
+import { extractInjectable } from '@test/assets';
 
 import { EnvironmentModule } from './environment.module';
 import { EnvironmentService } from './environment.service';
