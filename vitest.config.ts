@@ -6,6 +6,8 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'json', 'json-summary', 'html'],
+      include: ['./**/*.(t|j)s'],
+      exclude: ['./prisma/generated/*', '.dev/*', 'dist/*'],
     },
   },
   resolve: {
