@@ -45,10 +45,10 @@ const environmentSchema = z.object({
   DATABASE_URL: z.string(),
 
   // For cookie assignee
-  APP_HOST: z.string(),
+  APP_HOST: z.string().min(1, { message: 'Field cannot be empty' }),
 
-  // Other
-  JWT_SECRET: z.string(),
+  JWT_SECRET: z.string().min(1, { message: 'Field cannot be empty' }),
+  ARGON_SECRET: z.string().min(1, { message: 'Field cannot be empty' }),
 
   NODE_ENV: z
     .union([

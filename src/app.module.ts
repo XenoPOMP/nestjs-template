@@ -5,6 +5,7 @@ import { AuthModule } from '@/routes/auth/auth.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ArgonModule } from './features/argon/argon.module';
 import { EnvironmentModule } from './features/environment/environment.module';
 import { PrismaModule } from './features/prisma/prisma.module';
 import { UserModule } from './routes/user/user.module';
@@ -16,6 +17,7 @@ import { UserModule } from './routes/user/user.module';
     ConfigModule.forRoot(),
     EnvironmentModule,
     UserModule,
+    ArgonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -11,6 +11,7 @@ export default tseslint.config(
       './dist/*',
       './prisma/generated/*',
       './.dev/scripts/*',
+      './test/jest.setup.js',
     ],
   },
   eslint.configs.recommended,
@@ -43,6 +44,7 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/no-deprecated': 'error',
+      'no-extra-boolean-cast': 'off',
     },
   },
 );

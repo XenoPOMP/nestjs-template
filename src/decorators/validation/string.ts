@@ -10,13 +10,12 @@ export const IsRequiredString = (
   const max = options?.max;
 
   return applyOptionalDecorators(
-    // eslint-disable-next-line no-extra-boolean-cast
     !!min
       ? MinLength(min[0], {
           message: min[1],
         })
       : undefined,
-    // eslint-disable-next-line no-extra-boolean-cast
+
     !!max
       ? MaxLength(max[0], {
           message: max[1],
