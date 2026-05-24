@@ -4,9 +4,6 @@ export default defineConfig({
   test: {
     setupFiles: ['./test/vitest.setup.ts'],
     include: ['**/*.spec.ts'],
-    typecheck: {
-      tsconfig: './tsconfig.json',
-    },
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'json', 'json-summary', 'html'],
