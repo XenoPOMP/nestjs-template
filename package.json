@@ -25,7 +25,7 @@
     "ci:lint": "yarn lint --max-warnings=0",
     "ci:test": "yarn test --passWithNoTests",
     "pack:env": "tsx ./.dev/scripts/pack-env.ts",
-    "knip": "knip"
+    "knip": "knip -c ./knip.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
