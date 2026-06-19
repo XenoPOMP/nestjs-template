@@ -1,0 +1,24 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: "cron"
+      cronjob: "0 12 1,15 * *"
+    ignore:
+      - dependency-name: "*eslint*"
+    groups:
+      production-deps:
+        dependency-type: "production"
+        update-types: ["major", "minor"]
+      development-deps:
+        dependency-type: "development"
+        update-types: ["major", "minor"]
+    open-pull-requests-limit: 15
+    pull-request-branch-name:
+      separator: "-"
+    commit-message:
+      # cause a release for non-dev-deps
+      prefix: fix(deps)
+      # no release for dev-deps
+      prefix-development: chore(dev-deps)
