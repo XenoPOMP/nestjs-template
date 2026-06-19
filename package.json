@@ -87,7 +87,7 @@
     "vitest": "^4.1.7"
   },
   "resolutions": {
-    "typescript": ">=5.0.0"
+    "typescript": ">=5.0.0 <6"
   },
   "packageManager": "yarn@1.22.22"
 }
