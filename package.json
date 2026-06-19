@@ -24,7 +24,7 @@
     "prepare": "husky",
     "ci:lint": "yarn lint --max-warnings=0",
     "ci:test": "yarn test --passWithNoTests",
-    "pack:env": "npx -y tsx ./.dev/scripts/pack-env.ts",
+    "pack:env": "tsx ./.dev/scripts/pack-env.ts",
     "knip": "npx -y knip"
   },
   "dependencies": {
@@ -47,7 +47,7 @@
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "tsx": "^4.22.1",
+    "tsx": "^4.22.4",
     "xenopomp-essentials": "^0.5.0",
     "zod": "^4.1.12"
   },
