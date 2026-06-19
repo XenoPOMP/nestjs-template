@@ -1,10 +1,6 @@
 name: 'CI Pipeline'
 on:
   push:
-    branches:
-      - main
-      - canary
-
   pull_request:
     branches:
       - main
